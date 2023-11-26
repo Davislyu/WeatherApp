@@ -6,14 +6,18 @@ export const getLocationKey = async (location) => {
     const query = encodeURIComponent(location);
     const response = await fetch(`${BASE_URL}/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${query}`);
     const data = await response.json();
-
-    return data[0]?.Key;
+    const locationData = data[0] || {};
+    return {
+        key: locationData.Key,
+        localizedName: locationData.AdministrativeArea.LocalizedName //Since we need to get 2 data values, we split the return for 2 parts.
+    };
 };
+
 
 export const getCurrentWeather = async (locationKey) => {
     const response = await fetch(`${BASE_URL}/currentconditions/v1/${locationKey}?apikey=${API_KEY}`);
     const data = await response.json();
-    return data;
+    return data[0];
 };
 
 export const getFiveDayForecast = async (locationKey) => {
