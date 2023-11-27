@@ -9,7 +9,7 @@ export const getLocationKey = async (location) => {
     const locationData = data[0] || {};
     return {
         key: locationData.Key,
-        localizedName: locationData.AdministrativeArea.LocalizedName //Since we need to get 2 data values, we split the return for 2 parts.
+        localizedName: locationData.LocalizedName //Since we need to get 2 data values, we split the return for 2 parts.
     };
 };
 
@@ -25,4 +25,6 @@ export const getFiveDayForecast = async (locationKey) => {
     const data = await response.json();
     return data.DailyForecasts;
 };
+
+
 
