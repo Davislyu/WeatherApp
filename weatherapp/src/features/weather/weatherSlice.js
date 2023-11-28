@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getLocationKey, getCurrentWeather, getFiveDayForecast } from "./weatherApi";
 
 const initialState = {
-    currentLocation: '',
-    currentWeather: null,
-    forecast: [],
-    status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+    currentLocation: '', //Current location name only.
+    currentWeather: null, //Current day forcast data 
+    forecast: [], //Contains data about the following 5 days.
+    status: 'idle', // Options : 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
-    isCelsius: true,
+    isCelsius: true, //Checking if the current state of the degree type is Celsius
 };
 
 

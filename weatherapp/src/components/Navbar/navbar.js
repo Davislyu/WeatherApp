@@ -13,19 +13,20 @@ const Navbar = () => {
 
     const isCelsius = useSelector((state) => state.weather.isCelsius);
 
-    const [isToggled, setIsToggled] = useState(false)
+    const [isToggled, setIsToggled] = useState(true)
     const handleToggle = () => {
         setIsToggled(!isToggled)
     }
 
     return (
-        <nav className="navbar sticky  w-full h-fit bg-opacity-40 bg-cyan-100 flex  flex-col sm:flex-row backdrop-blur-md items-center justify-between gap-2 z-10">
+        <nav className="navbar sticky  w-full h-fit bg-opacity-70 bg-white backdrop-blur-sm flex  flex-col sm:flex-row  items-center justify-between gap-2  shadow-2xl shadow-white z-10 ">
+
             <img className="h-[6rem] p-4" src={logo} alt="Logo" />
-            <ul className={`flex flex-col  w-full text-center sm:justify-around sm:flex-row gap-8     text-white text-2xl`}>
-                <li className={`${isToggled ? "hidden" : "block"} sm:block`}>Home</li>
-                <li className={`${isToggled ? "hidden" : "block"} sm:block`}>Favorites</li>
+            <ul className={`flex flex-col   w-full text-center sm:justify-around sm:flex-row gap-8     text-black text-2xl`}>
+                <li className={`${isToggled ? "hidden" : "block"} sm:block font-bold`}>Home</li>
+                <li className={`${isToggled ? "hidden" : "block"} sm:block font-bold `}>Favorites</li>
             </ul>
-            <i onClick={handleToggle} className="text-4xl block sm:hidden text-white hover:cursor-pointer p-6" >
+            <i onClick={handleToggle} className="text-4xl block sm:hidden  hover:cursor-pointer " >
                 {isToggled ? <CiMenuBurger /> : <IoIosArrowRoundUp />}
             </i>
             <div className="flex gap-2 p-2 ">

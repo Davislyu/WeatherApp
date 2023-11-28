@@ -55,14 +55,14 @@ const Weather = () => {
 
     return (
         <>
-            <video autoPlay loop muted className="fixed loop  top-0 left-0 min-w-full min-h-full object-cover z-0">
+            <video autoPlay loop muted playsInline className="fixed loop autoplay top-0 left-0 min-w-full min-h-full object-cover z-0">
                 <source src={backgroundVid} type="video/mp4" />
             </video>
 
             <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
 
 
-                <div className="bg-opacity-60 border box-border rounded-xl xl:text-sm backdrop-blur-sm   gap-20 border-opacity-30 p-6">
+                <div className="bg-opacity-60 border box-border border-black xl:text-sm backdrop-blur-sm   gap-20 border-opacity-30 p-6">
                     <Toaster
                         position="bottom-center"
                         reverseOrder={false}
