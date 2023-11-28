@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchWeather } from './weatherSlice';
 import backgroundVid from "../../assets/vecteezy_evening-sky-shining-bright-there-were-many-stars-in-the-sky_7010363.mp4"
-import dayImg from "../../assets/dayjpg.jpeg";
-import nightImg from "../../assets/night.jpg"
+import dayImg from "../../assets/dayPic.jpg";
+import nightImg from "../../assets/nightPic.png"
 import toast, { Toaster } from 'react-hot-toast';
 import { Input } from "@material-tailwind/react";
+import { getAutocompleteSuggestions } from "./Autocomplete"
 
 
 
@@ -15,20 +16,40 @@ import { Input } from "@material-tailwind/react";
 
 const Weather = () => {
     const [location, setLocation] = useState('');
+    const [suggestions, setSuggestions] = useState([]); // State for autocomplete suggestions
+
     const dispatch = useDispatch();
     const weather = useSelector((state) => state.weather);
     const { currentWeather, forecast, status, error } = weather;
-    ;
+
+    const handleInputChange = (e) => {
+        const userInput = e.target.value;
+        setLocation(userInput);
+
+        // Fetch autocomplete suggestions based on user input
+        getAutocompleteSuggestions(userInput)
+            .then((suggestions) => {
+                setSuggestions(suggestions);
+            })
+            .catch((error) => {
+                console.error('Error fetching autocomplete suggestions:', error);
+            });
+    };
+
+    const handleSuggestionClick = (suggestion) => {
+        setLocation(suggestion.LocalizedName);
+        // Optionally, you can also clear the suggestions here by resetting the state.
+        setSuggestions([]);
+    };
 
     const handleSearch = (e) => {
         e.preventDefault();
         dispatch(fetchWeather(location));
-
     };
+
     useEffect(() => {
         if (error) {
             toast.error("Error: " + error);
-
         }
     }, [error, dispatch]);
 
@@ -54,7 +75,7 @@ const Weather = () => {
                             className="p-4    font-semibold  placeholder:font-semibold text-xl w-[50vw] md:w-[30vw] bg-transparent lg:w-[20vw]"
                             // placeholder="Enter location"
                             value={location}
-                            onChange={(e) => setLocation(e.target.value)}
+                            onChange={handleInputChange}
                         />
                         <button
                             className="p-4 font-semibold text-white   text-2xl w-[50vw] rounded sm:w-[auto]"
@@ -67,6 +88,20 @@ const Weather = () => {
 
 
                     </form>
+                    {location && suggestions && suggestions.length > 0 && (
+                        <div className="autocomplete-dropdown">
+                            {suggestions.map((suggestion) => (
+                                <div
+                                    key={suggestion.Key}
+                                    className="autocomplete-suggestion hover:cursor-pointer"
+                                    onClick={() => handleSuggestionClick(suggestion)}
+                                >
+                                    {suggestion.LocalizedName}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
                     <div className="mt-20 text-center">
                         {status === 'loading' && <p className="text-xl">Loading...</p>}
                         {currentWeather && (
@@ -132,6 +167,7 @@ const Card = ({ day, DayTime }) => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
+                opacity: "70%"
             }}
         >
             <div className="h-48 w-[60vw] sm:w-[30vw] md:w-[10vw] flex flex-col items-center justify-between bg-opacity-60 rounded-lg">
@@ -139,7 +175,7 @@ const Card = ({ day, DayTime }) => {
                     {day.dayOfWeek}
                 </h3>
                 <img className='h-[5rem] w-[10rem]' src={`/weatherIcons/${day.weatherIcon}.png`} alt="Weather Icon" />
-                <h3 className="text-black font-semibold text-2xl sm:text-white">
+                <h3 className="text-black bg-blue-50 rounded rounded-xl p-1 opacity-80 text-2xl">
                     {day.minTemperature}°C - {day.maxTemperature}°C
                 </h3>
             </div>
