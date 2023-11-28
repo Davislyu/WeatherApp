@@ -13,7 +13,6 @@ export const getLocationKey = async (location) => {
     };
 };
 
-
 export const getCurrentWeather = async (locationKey) => {
     const response = await fetch(`${BASE_URL}/currentconditions/v1/${locationKey}?apikey=${API_KEY}`);
     const data = await response.json();

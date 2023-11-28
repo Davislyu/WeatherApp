@@ -6,7 +6,8 @@ const initialState = {
     currentWeather: null,
     forecast: [],
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
-    error: null
+    error: null,
+    isCelsius: true,
 };
 
 
@@ -39,6 +40,9 @@ const weatherSlice = createSlice({
             state.error = action.payload;
             state.status = 'failed';
         },
+        toggleTemperatureUnit: (state) => {
+            state.isCelsius = !state.isCelsius;
+        },
 
     }
 });
@@ -50,7 +54,8 @@ export const {
     setForecast,
     setLoading,
     setError,
-    resetError
+    resetError,
+    toggleTemperatureUnit
 } = weatherSlice.actions;
 
 
