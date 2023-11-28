@@ -59,10 +59,10 @@ const Weather = () => {
                 <source src={backgroundVid} type="video/mp4" />
             </video>
 
-            <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
+            <div className="relative z-10 flex flex-col items-center mt-[10vh] min-h-screen">
 
 
-                <div className="bg-opacity-60 border box-border border-black xl:text-sm backdrop-blur-sm   gap-20 border-opacity-30 p-6">
+                <div className="bg-opacity-60  box-border sm:border-none  xl:text-sm backdrop-blur-md border   gap-20 border-opacity-30 p-6">
                     <Toaster
                         position="bottom-center"
                         reverseOrder={false}
@@ -71,7 +71,7 @@ const Weather = () => {
                     <form className="flex flex-col  sm:items-start  items-center justify-center gap-6">
                         <Input
                             variant="standard"
-                            color='black'
+                            color='white'
                             label="Location"
                             type="text"
                             className="p-4 font-semibold  placeholder:font-semibold placeholder:text-black text-xl w-[50vw] md:w-[30vw] bg-transparent lg:w-[20vw]"
@@ -81,7 +81,7 @@ const Weather = () => {
 
                         />
                         <button
-                            className="  text-white md:text-black   text-lg w-[50vw] rounded sm:w-[auto]"
+                            className="  text-white   text-lg w-[50vw] rounded sm:w-[auto]"
                             onClick={handleSearch}
                         >
                             Search
