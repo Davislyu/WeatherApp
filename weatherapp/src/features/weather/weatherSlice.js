@@ -30,6 +30,9 @@ const weatherSlice = createSlice({
         setLoading(state) {
             state.status = "loading";
         },
+        resetError(state) {
+            state.error = null;
+        },
 
 
         setError(state, action) {
@@ -46,15 +49,17 @@ export const {
     setCurrentWeather,
     setForecast,
     setLoading,
-    setError
+    setError,
+    resetError
 } = weatherSlice.actions;
 
 
 export function fetchWeather(location) {
     return async function (dispatch) {
         dispatch(setLoading());
+        dispatch(resetError()); // Reset the error state before fetching
         try {
-            const { key: locationKey, localizedName } = await getLocationKey(location); //We define 2 veriables since we pulled 2 different values from the Api
+            const { key: locationKey, localizedName } = await getLocationKey(location);
             const currentWeather = await getCurrentWeather(locationKey);
             const forecast = await getFiveDayForecast(locationKey);
 
@@ -66,5 +71,6 @@ export function fetchWeather(location) {
         }
     };
 };
+
 
 export default weatherSlice.reducer;

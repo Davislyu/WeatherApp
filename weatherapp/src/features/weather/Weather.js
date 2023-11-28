@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchWeather } from './weatherSlice';
-import image from '../../assets/appBackground.jpg';
 import backgroundVid from "../../assets/vecteezy_evening-sky-shining-bright-there-were-many-stars-in-the-sky_7010363.mp4"
 import dayImg from "../../assets/dayjpg.jpeg";
 import nightImg from "../../assets/night.jpg"
+import toast, { Toaster } from 'react-hot-toast';
+import { Input } from "@material-tailwind/react";
+
+
 
 
 
@@ -15,12 +18,19 @@ const Weather = () => {
     const dispatch = useDispatch();
     const weather = useSelector((state) => state.weather);
     const { currentWeather, forecast, status, error } = weather;
+    ;
 
     const handleSearch = (e) => {
         e.preventDefault();
         dispatch(fetchWeather(location));
 
     };
+    useEffect(() => {
+        if (error) {
+            toast.error("Error: " + error);
+
+        }
+    }, [error, dispatch]);
 
     return (
         <>
@@ -30,22 +40,32 @@ const Weather = () => {
 
             <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
 
+
                 <div className="bg-opacity-60 box-border rounded-xl xl:text-sm backdrop-blur-md border border-black gap-20 border-opacity-30 p-6">
+                    <Toaster
+                        position="bottom-center"
+                        reverseOrder={false}
+                    />
 
                     <form className="flex flex-col md:flex-row items-center justify-center gap-6">
-                        <input
+                        <Input variant="standard"
+                            label="Location"
                             type="text"
-                            className="p-4 border rounded   border-black font-semibold  placeholder:font-semibold text-xl w-[50vw] md:w-[30vw] placeholder:text-black  placeholder:text-center bg-transparent lg:w-[20vw]"
-                            placeholder="Enter location"
+                            className="p-4    font-semibold  placeholder:font-semibold text-xl w-[50vw] md:w-[30vw] bg-transparent lg:w-[20vw]"
+                            // placeholder="Enter location"
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
                         />
                         <button
-                            className="p-4 border border-black font-semibold hover:bg-black hover:text-white transition-all text-2xl w-[50vw] rounded sm:w-[auto]"
+                            className="p-4 font-semibold text-white   text-2xl w-[50vw] rounded sm:w-[auto]"
                             onClick={handleSearch}
                         >
                             Search
                         </button>
+
+
+
+
                     </form>
                     <div className="mt-20 text-center">
                         {status === 'loading' && <p className="text-xl">Loading...</p>}

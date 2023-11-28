@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import './styles/index.css';
 import HomePage from "./pages/HomePage"
 import Navbar from './components/Navbar/navbar';
+import { ThemeProvider } from "@material-tailwind/react";
 
 
 const root = createRoot(document.getElementById('root'));
@@ -12,8 +13,12 @@ const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Navbar />
-      <HomePage />
+      <ThemeProvider>
+
+        <Navbar />
+        <HomePage />
+      </ThemeProvider>
+
     </Provider>
   </React.StrictMode>
 );
