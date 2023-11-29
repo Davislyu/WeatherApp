@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWeather } from "./weatherSlice";
 import dayImg from "../../assets/dayPic.jpg";
-import nightImg from "../../assets/nightPic.png";
 import toast, { Toaster } from "react-hot-toast";
-import { Input } from "@material-tailwind/react";
-import { getAutocompleteSuggestions } from "./Autocomplete";
+import Input from "@material-tailwind/react/components/Input";
+import { getAutocompleteSuggestions } from "./weatherApi";
 import vectorPurp from "../../assets/vectorPurpl.jpg";
 import dayday from "../../assets/daydayday.jpg";
 import { addFavorite } from "../favorites/favoritesSlice";
+import { convertCelToFer, convertFerToCel } from "./weatherUtils";
+import Card from "../../components/Card";
 
 const Weather = () => {
   const [location, setLocation] = useState("");
@@ -76,29 +77,28 @@ const Weather = () => {
   }, [error, dispatch]);
 
   return (
-    <>
-      <div
-        style={{
-          backgroundImage: `url(${
-            currentWeather && currentWeather.IsDayTime !== undefined
-              ? currentWeather.IsDayTime
-                ? dayday
-                : vectorPurp
-              : dayImg
-          })`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          zIndex: -1,
-        }}
-      ></div>
-
-      <div className="relative z-10 flex flex-col items-center mt-[10vh] min-h-screen">
+    <main
+      style={{
+        backgroundImage: `url(${
+          currentWeather && currentWeather.IsDayTime !== undefined
+            ? currentWeather.IsDayTime
+              ? dayday
+              : vectorPurp
+            : dayImg
+        })`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        //   position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: -1,
+        paddingTop: "100px",
+      }}
+    >
+      <div className="relative z-10 flex flex-col items-center">
         <div className="bg-opacity-60  box-border   xl:text-sm    gap-20 border-opacity-30 p-6">
           <Toaster position="bottom-center" reverseOrder={false} />
 
@@ -130,17 +130,17 @@ const Weather = () => {
           </form>
 
           {location && suggestions && suggestions.length > 0 && (
-            <div className="autocomplete-dropdown flex flex-col mt-8 gap-2 text-center">
+            <ul className="autocomplete-dropdown flex flex-col mt-8 gap-2 text-center">
               {suggestions.map((suggestion) => (
-                <div
+                <li
                   key={suggestion.Key}
                   className="autocomplete-suggestion hover:cursor-pointer"
                   onClick={() => handleSuggestionClick(suggestion)}
                 >
                   {suggestion.LocalizedName}
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           )}
 
           <div className="mt-20 text-center">
@@ -153,9 +153,9 @@ const Weather = () => {
                   {isCelsius
                     ? //TODO - util function for weather unit conversion
                       `${currentWeather.Temperature.Metric.Value}°C`
-                    : `${
-                        (currentWeather.Temperature.Metric.Value * 9) / 5 + 32
-                      }°F`}
+                    : `${convertCelToFer(
+                        currentWeather.Temperature.Metric.Value
+                      )}°F`}
                 </h2>
                 <p className="text-3xl font-thin">
                   {currentWeather.WeatherText}
@@ -197,12 +197,12 @@ const Weather = () => {
                         isCelsius: isCelsius,
                         minTemperature: isCelsius
                           ? Math.round(
-                              ((day.Temperature.Minimum.Value - 32) * 5) / 9
+                              convertFerToCel(day.Temperature.Minimum.Value)
                             )
                           : Math.round(day.Temperature.Minimum.Value),
                         maxTemperature: isCelsius
                           ? Math.round(
-                              ((day.Temperature.Maximum.Value - 32) * 5) / 9
+                              convertFerToCel(day.Temperature.Minimum.Value)
                             )
                           : Math.round(day.Temperature.Maximum.Value),
                       }}
@@ -214,34 +214,8 @@ const Weather = () => {
           </div>
         </div>
       </div>
-    </>
+    </main>
   );
 };
 
 export default Weather;
-
-const Card = ({ day }) => {
-  return (
-    <div className="h-48 w-[60vw] border lg:w-[10vw] lg:border-none rounded-3xl   flex flex-col items-center justify-between bg-opacity-60 rounded-lg ">
-      <h3
-        className={`text-2xl ${
-          day.IsDayTime ? "text-black" : "text-white"
-        }   md:text-3xl  `}
-      >
-        {day.dayOfWeek}
-      </h3>
-      <img
-        className="h-[5rem] w-[10rem]"
-        src={`/weatherIcons/${day.weatherIcon}.png`}
-        alt="Weather Icon"
-      />
-      <h3
-        className={`text-black  md:text-3xl  rounded  p-1 opacity-80 text-2xl `}
-      >
-        {day.isCelsius
-          ? `${day.minTemperature}°C - ${day.maxTemperature}°C`
-          : `${day.minTemperature}°F - ${day.maxTemperature}°F`}
-      </h3>
-    </div>
-  );
-};

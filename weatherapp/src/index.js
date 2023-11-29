@@ -1,12 +1,11 @@
 // index.js or App.js
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './app/store';
 import { createRoot } from 'react-dom/client';
 import './styles/index.css';
 
-import Navbar from './components/Navbar/navbar';
+import Navbar from './components/Navbar';
 import { ThemeProvider } from "@material-tailwind/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import BrowserRouter as Router
 import Weather from './features/weather/Weather';

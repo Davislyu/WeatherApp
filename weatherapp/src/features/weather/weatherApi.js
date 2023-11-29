@@ -27,5 +27,18 @@ export const getFiveDayForecast = async (locationKey) => { //5 Day forcast.
     return data.DailyForecasts;
 };
 
+export const getAutocompleteSuggestions = async (query) => {
+    try {
+        const response = await fetch(
+            `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${query}`
+        );
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching autocomplete suggestions:', error);
+        return [];
+    }
+};
+
 
 
