@@ -6,22 +6,25 @@ import { IoIosArrowRoundUp } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTemperatureUnit } from "../../features/weather/weatherSlice";
 import { Switch } from "@material-tailwind/react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
+
+
 
 const Navbar = () => {
     const dispatch = useDispatch();
-
+    const weather = useSelector((state) => state.weather);
+    const currentWeather = weather.currentWeather; // Get currentWeather directly
     const isCelsius = useSelector((state) => state.weather.isCelsius);
-
     const [isToggled, setIsToggled] = useState(false)
     const handleToggle = () => {
         setIsToggled(!isToggled)
     }
+    const isDayTime = currentWeather ? currentWeather.IsDayTime : false;
 
     return (
-        <nav className="navbar sticky  w-full h-fit bg-opacity-70 bg-white backdrop-blur-sm flex  flex-col sm:flex-row  items-center justify-between gap-2  shadow-2xl shadow-white z-10 ">
+        <nav className="navbar sticky  w-full h-fit bg-transparent backdrop-blur-sm flex  flex-col sm:flex-row  items-center justify-between gap-2  z-10 ">
             <img className="h-[6rem] p-4" src={logo} alt="Logo" />
-            <ul className={`flex flex-col   w-full text-center sm:justify-around sm:flex-row gap-8 text-black text-2xl`}>
+            <ul className={`flex flex-col ${isDayTime ? "text-black" : "text-yellow-700"}  w-full text-center sm:justify-around sm:flex-row gap-8  text-2xl`}>
                 <li className={`${isToggled ? "hidden" : "block"} sm:block font-bold`}>
                     <Link to={`/`}>Home</Link>
                 </li>

@@ -2,6 +2,8 @@
 const API_KEY = process.env.REACT_APP_ACCUWEATHER_API_KEY;
 const BASE_URL = 'http://dataservice.accuweather.com/';
 
+
+
 export const getLocationKey = async (location) => {
     const query = encodeURIComponent(location);
     const response = await fetch(`${BASE_URL}/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${query}`);

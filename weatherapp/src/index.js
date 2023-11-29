@@ -5,12 +5,12 @@ import { Provider } from 'react-redux';
 import store from './app/store';
 import { createRoot } from 'react-dom/client';
 import './styles/index.css';
-import HomePage from "./pages/HomePage"
-import FavoritesPage from './pages/FavoritesPage';
+
 import Navbar from './components/Navbar/navbar';
 import { ThemeProvider } from "@material-tailwind/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import BrowserRouter as Router
-
+import Weather from './features/weather/Weather';
+import Favorites from './features/favorites/Favorites';
 const root = createRoot(document.getElementById('root'));
 
 root.render(
@@ -20,8 +20,8 @@ root.render(
         <Router>
           <Navbar />
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/favorites" element={<FavoritesPage />} />
+            <Route path="/" element={<Weather />} />
+            <Route path="/favorites" element={<Favorites />} />
           </Routes>
         </Router>
       </ThemeProvider>
