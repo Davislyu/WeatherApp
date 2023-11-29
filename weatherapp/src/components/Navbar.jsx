@@ -6,7 +6,7 @@ import { IoIosArrowRoundUp } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTemperatureUnit } from "../features/weather/weatherSlice";
 import { Switch } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -28,10 +28,24 @@ const Navbar = () => {
         }  w-full text-center sm:justify-around sm:flex-row gap-8  text-2xl`}
       >
         <li className={`${isToggled ? "hidden" : "block"} sm:block font-bold`}>
-          <Link to={`/`}>Home</Link>
+          <NavLink
+            className={({ isActive, isPending }) => {
+              return isActive ? "underline" : isPending ? "pending" : "";
+            }}
+            to={`/`}
+          >
+            Home
+          </NavLink>
         </li>
         <li className={`${isToggled ? "hidden" : "block"} sm:block font-bold `}>
-          <Link to={`/favorites`}>Favorites</Link>
+          <NavLink
+            className={({ isActive, isPending }) => {
+              return isActive ? "underline" : isPending ? "pending" : "";
+            }}
+            to={`/favorites`}
+          >
+            Favorites
+          </NavLink>
         </li>
       </ul>
       <i

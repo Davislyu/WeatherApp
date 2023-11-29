@@ -4,7 +4,6 @@ import dayImg from "../../assets/dayPic.jpg";
 
 const Favorites = () => {
   const favorites = useSelector((state) => state.favorites.favorites);
-  console.log("favorites ", favorites);
   return (
     <div
       style={{

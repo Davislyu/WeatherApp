@@ -52,7 +52,6 @@ const Weather = () => {
     // async await
     getAutocompleteSuggestions(userInput)
       .then((suggestions) => {
-        console.log({ suggestions });
         setSuggestions(suggestions);
       })
       .catch((error) => {
@@ -160,7 +159,6 @@ const Weather = () => {
                 <p className="text-3xl font-thin">
                   {currentWeather.WeatherText}
                 </p>
-                {console.log("favorites.favorites ", favorites.favorites)}
                 {favorites.favorites.some((favorite) => {
                   return favorite.locationName === currentLocation;
                 }) ? (
