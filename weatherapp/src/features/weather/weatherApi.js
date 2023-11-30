@@ -1,6 +1,6 @@
 
 const API_KEY = process.env.REACT_APP_ACCUWEATHER_API_KEY;
-const BASE_URL = 'http://dataservice.accuweather.com/';
+const BASE_URL = 'https://dataservice.accuweather.com/';
 
 
 
@@ -30,7 +30,7 @@ export const getFiveDayForecast = async (locationKey) => { //5 Day forcast.
 export const getAutocompleteSuggestions = async (query) => {
     try {
         const response = await fetch(
-            `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${query}`
+            `https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${query}`
         );
         const data = await response.json();
         return data;

@@ -94,8 +94,8 @@ const Weather = () => {
         width: "100%",
         zIndex: -1,
         paddingTop: "100px",
-        overflowY: "auto", // Enable vertical scrolling
-        height: "100vh", // Set the height to the viewport height
+        overflowY: "auto",
+        height: "100vh",
       }}
     >
       <div className="relative z-10 mt-[19vh] sm:mt-0 flex flex-col items-center">
@@ -165,11 +165,17 @@ const Weather = () => {
                 {favorites.favorites.some((favorite) => {
                   return favorite.locationName === currentLocation;
                 }) ? (
-                  <button className="save-button" onClick={handleSaveClick}>
+                  <button
+                    className="save-button  bg-black text-white"
+                    onClick={handleSaveClick}
+                  >
                     Saved
                   </button>
                 ) : (
-                  <button className="save-button" onClick={handleSaveClick}>
+                  <button
+                    className="save-button  bg-black text-white  "
+                    onClick={handleSaveClick}
+                  >
                     Save
                   </button>
                 )}

@@ -2,7 +2,7 @@ import React from "react";
 
 const Card = ({ day }) => {
   return (
-    <div className="h-48 w-[60vw] border lg:w-[10vw] lg:border-none rounded-3xl   flex flex-col items-center justify-between bg-opacity-60 rounded-lg ">
+    <div className="h-48 w-[60vw]  lg:w-[10vw]  rounded-3xl   flex flex-col items-center justify-between bg-opacity-60 rounded-lg ">
       <h3
         className={`text-2xl ${
           day.IsDayTime ? "text-black" : "text-white"
