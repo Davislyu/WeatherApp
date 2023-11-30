@@ -20,11 +20,11 @@ const Navbar = () => {
   const isDayTime = currentWeather ? currentWeather.IsDayTime : false;
 
   return (
-    <nav className="navbar absolute top-0 left-0 right-0 w-full h-fit bg-transparent backdrop-blur-sm flex  flex-col sm:flex-row  items-center justify-between gap-2  z-10 ">
+    <nav className="navbar absolute top-0 left-0 right-0 w-full h-fit bg-transparent backdrop-blur-lg flex  flex-col sm:flex-row  items-center justify-between gap-2  z-10 ">
       <img className="h-[6rem] p-4" src={logo} alt="Logo" />
       <ul
         className={`flex flex-col ${
-          isDayTime ? "text-black" : "text-yellow-700"
+          isDayTime ? "text-black" : "text-white"
         }  w-full text-center sm:justify-around sm:flex-row gap-8  text-2xl`}
       >
         <li className={`${isToggled ? "hidden" : "block"} sm:block font-bold`}>

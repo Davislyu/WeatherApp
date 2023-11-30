@@ -12,9 +12,16 @@ const Card = ({ day }) => {
       </h3>
       <img
         className="h-[5rem] w-[10rem]"
-        src={`/weatherIcons/${day.weatherIcon}.png`}
+        src={`/weatherIcons/${day.weatherIcon}.svg`}
         alt="Weather Icon"
+        b
       />
+
+      <svg
+        className="h-[5rem] w-[10rem]"
+        xmlns={`/weatherIcons/${day.weatherIcon}.svg`}
+      ></svg>
+
       <h3
         className={`text-black  md:text-3xl  rounded  p-1 opacity-80 text-2xl `}
       >

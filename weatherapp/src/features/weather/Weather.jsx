@@ -88,16 +88,17 @@ const Weather = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        //   position: "fixed",
+        position: "fixed",
         top: 0,
         left: 0,
         width: "100%",
-        height: "100%",
         zIndex: -1,
         paddingTop: "100px",
+        overflowY: "auto", // Enable vertical scrolling
+        height: "100vh", // Set the height to the viewport height
       }}
     >
-      <div className="relative z-10 flex flex-col items-center">
+      <div className="relative z-10 mt-[19vh] sm:mt-0 flex flex-col items-center">
         <div className="bg-opacity-60  box-border   xl:text-sm    gap-20 border-opacity-30 p-6">
           <Toaster position="bottom-center" reverseOrder={false} />
 
@@ -116,13 +117,16 @@ const Weather = () => {
                     ? "text-black"
                     : "text-white"
                   : "text-black"
-              }    placeholder:font-semibold placeholder:text-black text-xl -[50vw] md:w-[30vw] bg-transparent lg:w-[20vw]`}
+              }  placeholder:font-semibold placeholder:text-black text-xl -[50vw] md:w-[30vw] bg-transparent lg:w-[20vw]`}
               value={location}
               onChange={handleInputChange}
             />
             <button
               type="submit"
-              className={`   text-xl w-[50vw] font-semibold rounded sm:w-[auto]`}
+              className={`   text-xl w-[50vw] font-semibold rounded sm:w-[auto] ${
+                !location ? "text-gray-700 cursor-not-allowed" : "text-black"
+              }`}
+              disabled={!location}
             >
               Search
             </button>
@@ -150,8 +154,7 @@ const Weather = () => {
 
                 <h2 className="text-5xl font-thin">
                   {isCelsius
-                    ? //TODO - util function for weather unit conversion
-                      `${currentWeather.Temperature.Metric.Value}°C`
+                    ? `${currentWeather.Temperature.Metric.Value}°C`
                     : `${convertCelToFer(
                         currentWeather.Temperature.Metric.Value
                       )}°F`}
