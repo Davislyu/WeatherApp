@@ -13,7 +13,7 @@ const Navbar = () => {
   const weather = useSelector((state) => state.weather);
   const currentWeather = weather.currentWeather; // Get currentWeather directly
   const isCelsius = useSelector((state) => state.weather.isCelsius);
-  const [isToggled, setIsToggled] = useState(false);
+  const [isToggled, setIsToggled] = useState(true);
   const handleToggle = () => {
     setIsToggled(!isToggled);
   };
