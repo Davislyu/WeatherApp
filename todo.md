@@ -9,4 +9,6 @@ Dropdown should be absolute
 convert favorites into object
 avoid duplicated favoritesLocationNames!!!
 
-make a utils file for conversions etc...
+implement axios
+
+TSX

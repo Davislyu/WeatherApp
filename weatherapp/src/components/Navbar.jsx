@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
 const Navbar = () => {
   const dispatch = useDispatch();
   const weather = useSelector((state) => state.weather);
-  const currentWeather = weather.currentWeather; // Get currentWeather directly
+  const currentWeather = weather.currentWeather;
   const isCelsius = useSelector((state) => state.weather.isCelsius);
   const [isToggled, setIsToggled] = useState(true);
   const handleToggle = () => {
@@ -25,7 +25,7 @@ const Navbar = () => {
       <ul
         className={`flex flex-col ${
           isDayTime ? "text-black" : "text-white"
-        }  w-full text-center sm:justify-around sm:flex-row gap-8  text-2xl`}
+        }  w-full text-center sm:justify-start ml-10 sm:flex-row gap-8  text-2xl`}
       >
         <li className={`${isToggled ? "hidden" : "block"} sm:block font-bold`}>
           <NavLink
@@ -50,7 +50,7 @@ const Navbar = () => {
       </ul>
       <i
         onClick={handleToggle}
-        className="text-4xl block sm:hidden  hover:cursor-pointer "
+        className="text-4xl block sm:hidden hover:cursor-pointer "
       >
         {isToggled ? <CiMenuBurger /> : <IoIosArrowRoundUp />}
       </i>

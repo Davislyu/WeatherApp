@@ -1,22 +1,29 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import dayImg from "../../assets/bg.jpg";
 import vectorPurp from "../../assets/vectorPurpl.jpg";
 import dayday from "../../assets/daydayday.jpg";
 import { convertCelToFer } from "../weather/weatherUtils";
+import { removeFavorite } from "./favoritesSlice";
 
 import {
   Card,
   CardHeader,
   CardBody,
   Typography,
-  Avatar,
+  Button,
 } from "@material-tailwind/react";
 
 const Favorites = () => {
+  const dispatch = useDispatch();
+
   const favorites = useSelector((state) => state.favorites.favorites);
-  const weather = useSelector((state) => state.weather);
+
   const isCelsius = useSelector((state) => state.weather.isCelsius);
+
+  function handleDeletion(locationKey) {
+    dispatch(removeFavorite(locationKey));
+  }
 
   return (
     <div
@@ -40,7 +47,7 @@ const Favorites = () => {
           <Card
             key={index}
             shadow={false}
-            className="relative grid h-[20rem] w-[90vw] md:w-[40vw] lg:w-[30vw] xl:2-[20vw]  top-60  items-end justify-center overflow-hidden text-center"
+            className="relative grid h-fit w-[90vw] md:w-[40vw] lg:w-[30vw] xl:2-[20vw]  top-60 items-center  justify-center overflow-hidden text-center"
           >
             <CardHeader
               floated={false}
@@ -58,7 +65,7 @@ const Favorites = () => {
               <div className="to-bg-black-10 absolute inset-0 h-full w-full" />
             </CardHeader>
 
-            <CardBody className="relative py-14 px-6 md:px-12">
+            <CardBody className="relative py-14   px-6 md:px-12">
               <Typography
                 variant="h2"
                 color={favorite.currentWeather.IsDayTime ? "black" : "white"}
@@ -66,6 +73,7 @@ const Favorites = () => {
               >
                 {favorite.locationName}
               </Typography>
+
               <Typography
                 variant="h5"
                 color={favorite.currentWeather.IsDayTime ? "black" : "white"}
@@ -94,6 +102,14 @@ const Favorites = () => {
                 alt="Weather Icon"
                 b
               />
+              <Button
+                variant="text"
+                onClick={() => handleDeletion(favorite.locationName)}
+                className="relative text-black"
+              >
+                remove
+              </Button>
+              {console.log(favorites)}
             </CardBody>
           </Card>
         ))}
