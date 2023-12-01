@@ -62,7 +62,7 @@ export const {
 export function fetchWeather(location) {
     return async function (dispatch) {
         dispatch(setLoading());
-        dispatch(resetError()); // Reset the error state before fetching
+        dispatch(resetError());
         try {
             const { key: locationKey, localizedName } = await getLocationKey(location);
             const currentWeather = await getCurrentWeather(locationKey);

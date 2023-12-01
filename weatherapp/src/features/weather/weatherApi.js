@@ -1,44 +1,65 @@
+import axios from 'axios';
 
 const API_KEY = process.env.REACT_APP_ACCUWEATHER_API_KEY;
 const BASE_URL = 'https://dataservice.accuweather.com/';
 
 
 
+
+
+const axiosInstance = axios.create({
+    baseURL: BASE_URL,
+    params: {
+        apikey: API_KEY
+    }
+});
+
+
+
+
+
+
 export const getLocationKey = async (location) => {
     const query = encodeURIComponent(location);
-    const response = await fetch(`${BASE_URL}/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${query}`);
-    const data = await response.json();
-    const locationData = data[0] || {};
-    return {
-        key: locationData.Key, // Returns the location key which we are going to use later to fetch data about the requested country.
-        localizedName: locationData.LocalizedName //Since we need to get 2 data values, we split the return for 2 parts.
-    };
+    try {
+        const response = await axiosInstance.get(`/locations/v1/cities/autocomplete?q=${query}`);
+        const locationData = response.data[0] || {};
+        return {
+            key: locationData.Key,
+            localizedName: locationData.LocalizedName
+        };
+    } catch (error) {
+        console.error('Error in getting the location key:', error);
+        return {};
+    }
 };
 
-export const getCurrentWeather = async (locationKey) => { //Daily weather forcast.
-    const response = await fetch(`${BASE_URL}/currentconditions/v1/${locationKey}?apikey=${API_KEY}`);
-    const data = await response.json();
-    return data[0];
+export const getCurrentWeather = async (locationKey) => {
+    try {
+        const response = await axiosInstance.get(`/currentconditions/v1/${locationKey}`);
+        return response.data[0];
+    } catch (error) {
+        console.error('Error in getting the current weather:', error);
+        return {};
+    }
 };
 
-export const getFiveDayForecast = async (locationKey) => { //5 Day forcast.
-    const response = await fetch(`${BASE_URL}/forecasts/v1/daily/5day/${locationKey}?apikey=${API_KEY}`);
-    const data = await response.json();
-    return data.DailyForecasts;
+export const getFiveDayForecast = async (locationKey) => {
+    try {
+        const response = await axiosInstance.get(`/forecasts/v1/daily/5day/${locationKey}`);
+        return response.data.DailyForecasts;
+    } catch (error) {
+        console.error('Error in getting the 5 day forcast:', error);
+        return [];
+    }
 };
 
 export const getAutocompleteSuggestions = async (query) => {
     try {
-        const response = await fetch(
-            `https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${query}`
-        );
-        const data = await response.json();
-        return data;
+        const response = await axiosInstance.get(`/locations/v1/cities/autocomplete?q=${query}`);
+        return response.data;
     } catch (error) {
         console.error('Error fetching autocomplete suggestions:', error);
         return [];
     }
 };
-
-
-

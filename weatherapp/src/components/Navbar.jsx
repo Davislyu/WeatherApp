@@ -25,7 +25,7 @@ const Navbar = () => {
       <ul
         className={`flex flex-col ${
           isDayTime ? "text-black" : "text-white"
-        }  w-full text-center sm:justify-start ml-10 sm:flex-row gap-8  text-2xl`}
+        }  w-full text-center sm:justify-start sm:ml-10 sm:flex-row gap-8  text-2xl`}
       >
         <li className={`${isToggled ? "hidden" : "block"} sm:block font-bold`}>
           <NavLink
@@ -55,12 +55,12 @@ const Navbar = () => {
         {isToggled ? <CiMenuBurger /> : <IoIosArrowRoundUp />}
       </i>
       <div className="flex gap-2 p-2 ">
-        <span>F°</span>
+        <span className={`${isCelsius ? "text-black" : "text-white"}`}>F°</span>
         <Switch
           checked={isCelsius}
           onChange={() => dispatch(toggleTemperatureUnit())}
         />
-        <span>C°</span>
+        <span className={`${isCelsius ? "text-white" : "text-black"}`}>C°</span>
       </div>
     </nav>
   );
