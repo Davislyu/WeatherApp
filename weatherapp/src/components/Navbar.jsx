@@ -20,7 +20,7 @@ const Navbar = () => {
   const isDayTime = currentWeather ? currentWeather.IsDayTime : false;
 
   return (
-    <nav className="navbar  top-0 left-0 right-0 w-screen h-fit bg-transparent backdrop-blur-lg flex  flex-col sm:flex-row  items-center justify-between gap-2  z-10 ">
+    <nav className="navbar  top-0 left-0 right-0 w-full h-fit bg-transparent backdrop-blur-lg flex  flex-col sm:flex-row  items-center justify-between gap-2  z-10 ">
       <img className="h-[6rem] p-4" src={logo} alt="Logo" />
       <ul
         className={`flex flex-col ${
@@ -55,12 +55,12 @@ const Navbar = () => {
         {isToggled ? <CiMenuBurger /> : <IoIosArrowRoundUp />}
       </i>
       <div className="flex gap-2 p-2 ">
-        <span className={`${isCelsius ? "text-black" : "text-white"}`}>F°</span>
+        <span className={`${isCelsius ? "text-black" : "text-black"}`}>F°</span>
         <Switch
           checked={isCelsius}
           onChange={() => dispatch(toggleTemperatureUnit())}
         />
-        <span className={`${isCelsius ? "text-white" : "text-black"}`}>C°</span>
+        <span className={`${isCelsius ? "text-black" : "text-black"}`}>C°</span>
       </div>
     </nav>
   );
