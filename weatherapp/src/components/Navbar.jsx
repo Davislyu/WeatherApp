@@ -20,7 +20,7 @@ const Navbar = () => {
   const isDayTime = currentWeather ? currentWeather.IsDayTime : false;
 
   return (
-    <nav className="navbar  top-0 left-0 right-0 w-full h-fit bg-transparent backdrop-blur-lg flex  flex-col sm:flex-row  items-center justify-between gap-2  z-10 ">
+    <nav className="navbar  top-0 left-0 right-0 w-screen h-fit bg-transparent backdrop-blur-lg flex  flex-col sm:flex-row  items-center justify-between gap-2  z-10 ">
       <img className="h-[6rem] p-4" src={logo} alt="Logo" />
       <ul
         className={`flex flex-col ${

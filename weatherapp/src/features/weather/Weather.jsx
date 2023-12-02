@@ -11,7 +11,7 @@ import vectorPurp from "../../assets/vectorPurpl.jpg";
 import dayday from "../../assets/daydayday.jpg";
 import dayImg from "../../assets/dayPic.jpg";
 import { CiSearch } from "react-icons/ci";
-
+import "../../styles/index.css"
 const Weather = () => {
   const [suggestions, setSuggestions] = useState([]); // State for autocomplete suggestions
   const dispatch = useDispatch();
@@ -97,7 +97,7 @@ const Weather = () => {
   }, [query]);
 
   return (
-    <main
+    <main className="hide-scrollbar"
       style={{
         backgroundImage: `url(${
           currentWeather && currentWeather.IsDayTime !== undefined
@@ -119,7 +119,7 @@ const Weather = () => {
         height: "100vh",
       }}
     >
-      <div className="relative z-10 mt-[19vh] sm:mt-0 flex flex-col items-center">
+      <div className="relative  z-10 mt-[19vh] sm:mt-0 flex flex-col items-center">
         <div className="bg-opacity-60 min-h-screen   box-border xl:text-sm gap-20 border-opacity-30 p-6 items-center">
           <Toaster position="bottom-center" reverseOrder={false} />
           <div className="flex gap-2 justify-center  ">

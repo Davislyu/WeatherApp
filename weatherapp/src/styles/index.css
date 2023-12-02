@@ -24,3 +24,14 @@ code {
 /* #root {
   height: 100vh;
 } */
+
+/* styles.css */
+.hide-scrollbar {
+  @apply overflow-auto; /* or any other Tailwind utilities you need */
+  -ms-overflow-style: none; /* for Internet Explorer and Edge */
+  scrollbar-width: none; /* for Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
