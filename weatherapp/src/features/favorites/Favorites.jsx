@@ -47,7 +47,7 @@ const Favorites = () => {
           <Card
             key={index}
             shadow={false}
-            className="relative grid h-fit w-[90vw] md:w-[40vw] lg:w-[30vw] xl:2-[20vw]  top-60 items-center  justify-center overflow-hidden text-center"
+            className="relative grid h-fit w-[90vw] md:w-[40vw] lg:w-[30vw] 2xl:w-[20vw]   top-60 items-center  justify-center overflow-hidden text-center"
           >
             <CardHeader
               floated={false}
