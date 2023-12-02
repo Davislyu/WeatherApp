@@ -33,6 +33,7 @@ const weatherSlice = createSlice({
         },
         resetError(state) {
             state.error = null;
+
         },
 
 

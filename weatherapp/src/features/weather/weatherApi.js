@@ -37,6 +37,7 @@ export const getLocationKey = async (location) => {
 export const getCurrentWeather = async (locationKey) => {
     try {
         const response = await axiosInstance.get(`/currentconditions/v1/${locationKey}`);
+        console.log(response)
         return response.data[0];
     } catch (error) {
         console.error('Error in getting the current weather:', error);

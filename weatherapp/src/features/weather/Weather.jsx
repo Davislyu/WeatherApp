@@ -120,7 +120,7 @@ const Weather = () => {
       }}
     >
       <div className="relative z-10 mt-[19vh] sm:mt-0 flex flex-col items-center">
-        <div className="bg-opacity-60 box-border xl:text-sm gap-20 border-opacity-30 p-6 items-center">
+        <div className="bg-opacity-60 min-h-screen   box-border xl:text-sm gap-20 border-opacity-30 p-6 items-center">
           <Toaster position="bottom-center" reverseOrder={false} />
           <div className="flex gap-2 justify-center  ">
             <form onSubmit={handleSearch}>
@@ -203,33 +203,50 @@ const Weather = () => {
             {currentWeather && (
               <div className=" flex flex-col gap-[2rem] box-border font-thin   relative   bg-opacity-30  w-fit   left-[50%] translate-x-[-50%] rounded-2xl p-2 ">
                 <h1 className="text-4xl   ">{currentLocation}</h1>
-
                 <h2 className="text-5xl font-thin">
-                  {isCelsius
-                    ? `${currentWeather.Temperature.Metric.Value}°C`
-                    : `${convertCelToFer(
+                  {currentWeather &&
+                  currentWeather.Temperature &&
+                  currentWeather.Temperature.Metric ? (
+                    isCelsius ? (
+                      `${currentWeather.Temperature.Metric.Value}°C`
+                    ) : (
+                      `${convertCelToFer(
                         currentWeather.Temperature.Metric.Value
-                      )}°F`}
+                      )}°F`
+                    )
+                  ) : (
+                    <div className="text-sm">
+                      <h1>Error in fetching data from the API</h1>
+                      <h3 className="text-red-500 ">
+                        Check your API key / internet connection
+                      </h3>
+                    </div>
+                  )}
                 </h2>
                 <p className="text-3xl font-thin">
                   {currentWeather.WeatherText}
                 </p>
-                {favorites.favorites.some((favorite) => {
-                  return favorite.locationName === currentLocation;
-                }) ? (
-                  <button
-                    className="save-button  bg-black text-white"
-                    onClick={handleSaveClick}
-                  >
-                    Saved
-                  </button>
-                ) : (
-                  <button
-                    className="save-button  bg-black text-white  "
-                    onClick={handleSaveClick}
-                  >
-                    Save
-                  </button>
+                {currentWeather && currentWeather.Temperature && (
+                  <div>
+                    {weather.currentLocation !== "" &&
+                    favorites.favorites.some((favorite) => {
+                      return favorite.locationName === currentLocation;
+                    }) ? (
+                      <button
+                        className="save-button  bg-black text-white w-full"
+                        onClick={handleSaveClick}
+                      >
+                        Saved
+                      </button>
+                    ) : (
+                      <button
+                        className="save-button  bg-black text-white  w-full "
+                        onClick={handleSaveClick}
+                      >
+                        Save
+                      </button>
+                    )}
+                  </div>
                 )}
               </div>
             )}
