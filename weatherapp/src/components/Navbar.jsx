@@ -55,12 +55,12 @@ const Navbar = () => {
         {isToggled ? <CiMenuBurger /> : <IoIosArrowRoundUp />}
       </i>
       <div className="flex gap-2 p-2 ">
-        <span >F°</span>
+        <span>F°</span>
         <Switch
           checked={isCelsius}
           onChange={() => dispatch(toggleTemperatureUnit())}
         />
-        <span >C°</span>
+        <span>C°</span>
       </div>
     </nav>
   );
