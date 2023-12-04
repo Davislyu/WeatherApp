@@ -20,7 +20,7 @@ const Weather = () => {
   const isCelsius = useSelector((state) => state.weather.isCelsius);
   const { currentWeather, forecast, status, error, currentLocation } = weather;
   const [selectedSuggestion, setSelectedSuggestion] = useState([]); // State for the selected suggestion
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("Tel-Aviv");
 
   const handleSaveLocation = () => {
     if (
@@ -28,7 +28,6 @@ const Weather = () => {
         (favorite) => favorite.locationName === currentLocation
       )
     ) {
-      // This toast is for when the location is already in favorites
       toast(`${weather.currentLocation} is already in your saved locations.`, {
         icon: "👻",
         style: {
@@ -38,7 +37,6 @@ const Weather = () => {
         },
       });
     } else {
-      // Dispatch the action to add the favorite
       dispatch(
         addFavorite({
           locationKey: weather.currentLocationKey,
@@ -47,7 +45,6 @@ const Weather = () => {
         })
       );
 
-      // This toast is for when a new location is added to favorites
       toast(`${weather.currentLocation} was added to your favorites.`, {
         icon: "🤝",
         style: {
@@ -95,6 +92,11 @@ const Weather = () => {
       setSuggestions([]);
     }
   }, [query]);
+
+    useEffect(() => {
+    dispatch(fetchWeather("Tel-Aviv"));
+  }, [dispatch]);
+
 
   return (
     <main className="hide-scrollbar"
