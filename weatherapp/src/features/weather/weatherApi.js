@@ -64,3 +64,6 @@ export const getAutocompleteSuggestions = async (query) => {
         return [];
     }
 };
+
+
+
